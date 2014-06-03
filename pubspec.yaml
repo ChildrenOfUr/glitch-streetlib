@@ -1,0 +1,10 @@
+name: streetlib
+version: 0.0.0
+author: Paul VanKeuren <paul.vankeuren@gmail.com>
+description: A dart package that takes a street.json file and renders a css3d street.
+dependencies:
+  browser: any
+  libld:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/libld.git
