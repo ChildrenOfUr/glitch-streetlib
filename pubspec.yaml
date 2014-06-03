@@ -8,3 +8,5 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/libld.git
+dev_dependencies:
+  okeyee: any

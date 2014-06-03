@@ -8,18 +8,17 @@ part 'src/deco.dart';
 
 class Street {
   Map source;
-  Element camera;
-  Element canvas;
-  Street(Asset streetAsset, this.canvas) {
-    
-    DivElement camera = canvas.append(new DivElement());
-    camera.id = 'camera';
+  Element canvas = querySelector('#street-canvas');
+  Element cameraElement;
+  Street(Asset streetAsset) {
+
     
     if (jsonExtensions.contains('street') == false)    
       jsonExtensions.add('street');    
       streetAsset.load().then((_) => _init(streetAsset.get()));
   }
   _init(Map street) {
+    
     this.source = street; // for external access
     // temp vars
     String gtop = street['gradient']['top'];
@@ -38,11 +37,7 @@ class Street {
       ..background = '-webkit-linear-gradient(#$gtop, #$gbottom)'
       ..background = 'linear-gradient(#$gtop, #$gbottom)'
       ..perspectiveOriginY = '100%'
-      ..perspective = '100';
-      
-    canvas.onMouseMove.listen((MouseEvent m) => canvas.style.perspectiveOriginX = m.client.x.toString() + 'px');
-    
-    
+      ..perspective = '50';    
     
     // Populate our deco layers
     for (String layerName in street['dynamic']['layers'].keys) {
@@ -71,6 +66,14 @@ class Street {
       layerElement = null;
     }   
   }
+  
+  camera(int x, int y) {    
+    canvas.style.perspectiveOriginX = x.toString() + 'px';
+    canvas.style.left = x.toString() + 'px';
+    
+    canvas.style.perspectiveOriginY = y.toString() + 'px';
+    canvas.style.top = y.toString() + 'px';
+  }  
 }
 
 
