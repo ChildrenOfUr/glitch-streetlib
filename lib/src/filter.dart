@@ -1,10 +1,5 @@
 part of streetlib;
 
-
-
-
-
-
 applyFilters(Element layerElement, Map layer) {
   
   List<String> filters = new List();

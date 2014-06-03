@@ -4,7 +4,7 @@ DecoManager decoManager = new DecoManager();
 class DecoManager {
   spawn(Map source, Map layer, Element layerElement, num ground_y) {
     ImageElement decoElement = layerElement.append(new ImageElement());
-    decoElement.src = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + source['filename'] + '.png';
+    decoElement.src = 'http://childrenofur.com/locodarto/scenery/' + source['filename'] + '.png';
             
     int x = source['x'] - source['w']~/2;
     int y = source['y'] - source['h'] + ground_y;
@@ -19,10 +19,10 @@ class DecoManager {
 
     decoElement.style
       ..position = 'absolute'
-      ..width = w.toString() + 'px'
-      ..height = h.toString() + 'px'
       ..left = x.toString() + 'px'
       ..top = y.toString() + 'px'
+      ..width = w.toString() + 'px'
+      ..height = h.toString() + 'px'
       ..zIndex = z.toString()
       ..transform = 'translateZ(' + z.toString() + 'px)';
           

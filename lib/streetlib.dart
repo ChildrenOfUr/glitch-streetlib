@@ -9,14 +9,18 @@ part 'src/deco.dart';
 class Street {
   Map source;
   Element canvas = querySelector('#street-canvas');
-  Element cameraElement;
-  Street(Asset streetAsset) {
-
-    
+  
+  Street(Asset streetAsset) {  
+  // Check to see if the asset is loaded, if not, load it.
     if (jsonExtensions.contains('street') == false)    
-      jsonExtensions.add('street');    
+      jsonExtensions.add('street');
+    if (streetAsset.loaded == false)
       streetAsset.load().then((_) => _init(streetAsset.get()));
+    else
+      _init(streetAsset.get());
   }
+  
+  // Actually set up the new Street.
   _init(Map street) {
     
     this.source = street; // for external access
@@ -24,10 +28,7 @@ class Street {
     String gtop = street['gradient']['top'];
     String gbottom = street['gradient']['bottom'];
     
-    canvas.children.retainWhere((Element e) => e.id == 'camera');
     canvas.id = street['label'];
-    
-    // Set up 
     canvas.style
       ..position = 'absolute'
       ..top = '0'
@@ -37,7 +38,8 @@ class Street {
       ..background = '-webkit-linear-gradient(#$gtop, #$gbottom)'
       ..background = 'linear-gradient(#$gtop, #$gbottom)'
       ..perspectiveOriginY = '100%'
-      ..perspective = '50';    
+      ..perspective = '50'
+      ..overflow = 'hidden';    
     
     // Populate our deco layers
     for (String layerName in street['dynamic']['layers'].keys) {
@@ -45,15 +47,13 @@ class Street {
       layerElement.id = layerName;
       
       Map layer = street['dynamic']['layers'][layerName];
-      
       applyFilters(layerElement, layer);      
-      
       // SIZE AND SCALE
       layerElement.style
         ..position = 'absolute'
         ..width = layer['w'].toString() + 'px'
         ..height = layer['h'].toString() + 'px'
-        ..zIndex = (layer['z']).toString()
+        ..zIndex = layer['z'].toString()
         ..transform = 'translateZ(' + layer['z'].toString() + 'px)'
         ..top = '0'
         ..left = '0';        
@@ -62,17 +62,19 @@ class Street {
       for (Map deco in layer['decos'])
         decoManager.spawn(deco, layer, layerElement, street['dynamic']['ground_y']);
     
-      // Release the reference so it can be garabage collected.
+      // Release references so they can be garabage collected.
       layerElement = null;
+      gtop = null;
+      gbottom = null;
     }   
   }
   
-  camera(int x, int y) {    
-    canvas.style.perspectiveOriginX = x.toString() + 'px';
-    canvas.style.left = x.toString() + 'px';
-    
-    canvas.style.perspectiveOriginY = y.toString() + 'px';
-    canvas.style.top = y.toString() + 'px';
+  // set the camera position
+  camera(int x, int y) {
+    canvas.style.perspectiveOriginX = (canvas.clientWidth/2 + x).toString() + 'px';
+    canvas.style.left = (canvas.clientWidth/2 + x).toString() + 'px';
+    canvas.style.perspectiveOriginY = (canvas.clientHeight/2 + y).toString() + 'px';
+    canvas.style.top = (canvas.clientHeight/2 + y).toString() + 'px';    
   }  
 }
 
