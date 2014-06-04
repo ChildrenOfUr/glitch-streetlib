@@ -5,13 +5,92 @@
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
+    <style>
+    #game {
+  position:absolute;
+  top:50px;
+  left:20px;
+  width:100%;
+  height:100%;
+  border-radius:10px;
+  background-color:#ccc;
+  /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
+  more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  overflow:hidden;
+}
+#street-canvas {
+  position:absolute;
+  top:0;
+  left:0;
+  overflow:hidden;
+}
+#streetLoading {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#ccc;
+  z-index:5;
+}
+#streetLoading h2 {
+  text-align:center;
+  color:#fff;
+  top:50px;
+}
+#streetLoading h2 span {
+    color:#fff;
+    font-size:2em;
+}
+
+
+#streetLoading .bar {
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:30px;
+  height:1em;
+  border-radius:0.4em;
+  background-color:#bbb;
+  overflow:hidden;
+}
+#streetLoading .bar .percent {
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:0%;
+  background-color:#5cb85c;
+  border-radius:0.4em;
+  border-bottom:5px solid rgba(0,0,0,0.2);
+}
+    </style>
+    
+    
   </head>
 
-  <body>   
+  <body style="zoom:50%;">   
     
-    <div>
-    <div id="street-canvas"></div>
-    </div>
+      <div id="game">
+      
+        <div id="world">
+          <div id="street">
+          </div>
+        </div>
+      
+      
+        <div id="streetLoading" visible>
+          <br><br>
+          <h2>Now Entering:<br>
+          <span id="location"></span>
+          </h2>
+          <div class="bar">
+          <div class="percent"></div>
+          </div>
+        </div>
+        
+      </div>
 
     <script type="application/dart" src="test.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->

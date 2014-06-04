@@ -1,36 +1,32 @@
 part of streetlib;
 
-applyFilters(Element layerElement, Map layer) {
-  
-  List<String> filters = new List();
-     new Map.from(layer['filters']).forEach((String filterName, int value)
-     {
+applyFilters(Element layerElement, Map source) {
+      for (String filterName in source.keys) {
      //blur is super expensive (seemed to cut my framerate in half)
        if(filterName == "blur")
          {
-           filters.add('blur('+value.toString()+'px)');
+           layerElement.style.filter += ('blur('+ source[filterName].toString() +'px) ');
          }
        if(filterName == "brightness")
          {
-           if(value < 0) 
-             filters.add('brightness(' + (1-(value/-100)).toString() +')');
-           if (value > 0)
-             filters.add('brightness(' + (1+(value/100)).toString() +')');
+           if(source[filterName] < 0) 
+             layerElement.style.filter +=('brightness(' + (1-(source[filterName]/-100)).toString() +') ');
+           if (source[filterName] > 0)
+             layerElement.style.filter +=('brightness(' + (1+(source[filterName]/100)).toString() +') ');
          }
        if(filterName == "contrast")
          {
-           if (value < 0) 
-             filters.add('contrast(' + (1-(value/-100)).toString() +')');
-           if (value > 0)
-             filters.add('contrast(' + (1+(value/100)).toString() +')');
+           if (source[filterName] < 0) 
+             layerElement.style.filter += ('contrast(' + (1-(source[filterName]/-100)).toString() +') ');
+           if (source[filterName] > 0)
+             layerElement.style.filter += ('contrast(' + (1+(source[filterName]/100)).toString() +') ');
          }
        if(filterName == "saturation")
          {
-           if (value < 0) 
-             filters.add('saturation(' + (1-(value/-100)).toString() +')');
-           if (value > 0)
-             filters.add('saturation(' + (1+(value/100)).toString() +')');
+           if (source[filterName] < 0) 
+             layerElement.style.filter += ('saturation(' + (1-(source[filterName]/-100)).toString() +') ');
+           if (source[filterName] > 0)
+             layerElement.style.filter += ('saturation(' + (1+(source[filterName]/100)).toString() +') ');
          }
-     });
-     layerElement.style.filter = filters.join(' ');
+     };
 }
