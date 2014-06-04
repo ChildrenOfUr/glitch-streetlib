@@ -3,10 +3,10 @@ part of streetlib;
 applyFilters(Element layerElement, Map source) {
       for (String filterName in source.keys) {
      //blur is super expensive (seemed to cut my framerate in half)
-       if(filterName == "blur")
-         {
-           layerElement.style.filter += ('blur('+ source[filterName].toString() +'px) ');
-         }
+       //if(filterName == "blur")
+        // {
+        //   layerElement.style.filter += ('blur('+ source[filterName].toString() +'px) ');
+        // }
        if(filterName == "brightness")
          {
            if(source[filterName] < 0) 

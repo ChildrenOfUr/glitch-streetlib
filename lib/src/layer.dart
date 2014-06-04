@@ -1,7 +1,7 @@
 part of streetlib;
 
 
-Layer _layer = new Layer._first();
+Layer _layer = new Layer._();
 class Layer {
   factory Layer(String name, Map source) {
     Element layerElement = _street_canvas.append(new DivElement());
@@ -27,5 +27,5 @@ class Layer {
        new Deco(deco, layerElement);
     return _layer;
   }
-  Layer._first(); // Make the first Layer object that gets reused.
+  Layer._(); // Make the first Layer object that gets reused.
 }
