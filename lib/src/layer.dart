@@ -14,7 +14,7 @@ class Layer {
       ..width = '$w' + 'px'
       ..height = '$h' + 'px'
       ..zIndex = (source['z']-100).toString()
-      ..transform = 'translateZ($z' + 'px)'; // for parallax
+      ..transform = 'translateZ(${z~/3}' + 'px)'; // for parallax
     
     if (name == 'middleground') {
       layerElement.style

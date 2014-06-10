@@ -49,9 +49,11 @@ class Street {
       ..background = '-webkit-linear-gradient(#$gt, #$gb)'
       ..background = '-moz-linear-gradient(#$gt, #$gb)'
       ..background = 'linear-gradient(#$gt, #$gb)'
-      ..perspective = '100'
-      ..perspectiveOriginY = '100%'
-      ..transition = 'left 1s, top 1s, perspective-origin 1s';
+      ..perspective = '50'
+      ..transition = 'top 0.5s, left 0.5s';
+    
+    
+    
     for (String layerName in source['dynamic']['layers'].keys)
       new Layer(layerName, source['dynamic']['layers'][layerName]);
     
@@ -71,10 +73,9 @@ class Street {
     
     // Update the perspective
     int xpos = (int.parse(_street_canvas.style.left.replaceFirst('px', '')) ).abs() 
-        + (_street_canvas.parent.clientWidth ~/2);
+        + (_street_canvas.parent.clientWidth~/1.2);
     int ypos = (int.parse(_street_canvas.style.top.replaceFirst('px', '')) ).abs() 
-        + (_street_canvas.parent.clientHeight ~/2);
-    print('$xpos,$ypos');
+        + (_street_canvas.parent.clientHeight);
     _street_canvas.style
       ..perspectiveOrigin = xpos.toString() + 'px ' + ypos.toString() + 'px'
       ..transform = 'scale('+ camera.zoom.toString() + ')';

@@ -1,5 +1,10 @@
 part of streetlib;
 
+
+
+
+// In all likelyhood we will only ever need one camera,
+// Using a factory to create a reusable one.
 Camera _camera = new Camera._();
 class Camera {
   int x,y;
@@ -15,7 +20,6 @@ class Camera {
     this.x = x;
     this.y = y;
     this.zoom = zoom;
-  }
-  
+  }  
   Camera._();
 }
